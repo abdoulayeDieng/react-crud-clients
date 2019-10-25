@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import Client from "./Client";
+
 class App extends React.Component {
   state = {
     clients: [
@@ -34,10 +36,7 @@ class App extends React.Component {
         <h1>Clients list</h1>
         <ul>
           {this.state.clients.map(client => (
-            <li key={client.id}>
-              {client.nom}
-              <button onClick={() => this.handleDelete(client.id)}>X</button>
-            </li>
+            <Client details={client} onDelete={this.handleDelete.bind(this)} />
           ))}
         </ul>
         <form onSubmit={this.handleAdd.bind(this)}>
