@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Client from "./Client";
+import FormAdd from "./Form-add";
 
 class App extends React.Component {
   state = {
@@ -9,8 +10,7 @@ class App extends React.Component {
       { id: 1, nom: "Ngor Diouf" },
       { id: 2, nom: "Yero Sow" },
       { id: 3, nom: "Nafi Diop" }
-    ],
-    newClient: "Astou Wade"
+    ]
   };
 
   handleDelete(id) {
@@ -19,15 +19,8 @@ class App extends React.Component {
     }));
   }
 
-  handleChange(event) {
-    this.setState({ newClient: event.currentTarget.value });
-  }
-
-  handleAdd(event) {
-    const id = new Date().getTime();
-    const nom = this.state.newClient;
-    this.setState(prevstate => prevstate.clients.push({ id, nom }));
-    event.preventDefault();
+  addClient(client) {
+    this.setState(prevstate => prevstate.clients.push(client));
   }
 
   render() {
@@ -39,14 +32,7 @@ class App extends React.Component {
             <Client details={client} onDelete={this.handleDelete.bind(this)} />
           ))}
         </ul>
-        <form onSubmit={this.handleAdd.bind(this)}>
-          <input
-            value={this.state.newClient}
-            onChange={this.handleChange.bind(this)}
-            placeholder="Ajouter le nom d'un client"
-          />
-          <button>Confirmez</button>
-        </form>
+        <FormAdd onAdd={this.addClient.bind(this)} />
       </div>
     );
   }
